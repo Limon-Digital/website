@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import WhatsApp from '../components/WhatsApp.astro';
+
+const demos = [
+  {
+    id: 'basic',
+    nombre: 'Landing Básica',
+    plan: 'Plan Básico',
+    precio: 'desde $149.990',
+    desc: 'Presencia digital profesional con lo esencial. Hero, servicios, sobre nosotros y formulario de contacto. Ideal para emprendedores y negocios que parten.',
+    url: 'https://demo-landing-basic.netlify.app', // <- actualiza con la URL real
+    features: ['4 secciones', 'Formulario de contacto', 'Responsive', 'SEO básico'],
+    badge: null,
+    disponible: true,
+  },
+  {
+    id: 'pro',
+    nombre: 'Landing Pro',
+    plan: 'Plan Pro',
+    precio: 'desde $249.990',
+    desc: 'Experiencia visual premium con animaciones, botón de WhatsApp flotante, sección de precios y más secciones para convertir mejor.',
+    url: 'https://jocular-croquembouche-b19aa5.netlify.app',
+    features: ['6+ secciones', 'Animaciones', 'Botón WhatsApp', 'Sección precios', 'Google Analytics'],
+    badge: 'Más popular',
+    disponible: true,
+  },
+  {
+    id: 'ecommerce',
+    nombre: 'Tienda / E-commerce',
+    plan: 'Plan Custom',
+    precio: 'Cotización',
+    desc: 'Catálogo de productos, carrito de compras y pasarela de pago. Para negocios que venden en línea.',
+    url: null,
+    features: ['Catálogo de productos', 'Carrito de compras', 'Pasarela de pago', 'Panel admin'],
+    badge: 'Próximamente',
+    disponible: false,
+  },
+];
+---
+<BaseLayout
+  title="Demos — Limón Digital"
+  description="Explora nuestros templates de landing pages. Ve cómo quedaría tu sitio web antes de contratar."
+>
+  <Navbar />
+  <main>
+    <section class="header-section">
+      <div class="inner">
+        <span class="label">Templates disponibles</span>
+        <h1>Elige el template<br/>para tu negocio</h1>
+        <p>Cada demo es un ejemplo real de lo que entregamos. Explóralos y elige el que más se adapta a lo que necesitas.</p>
+      </div>
+    </section>
+
+    <section class="demos-section">
+      <div class="inner">
+        <div class="grid">
+          {demos.map(d => (
+            <div class={`card reveal ${d.badge === 'Más popular' ? 'featured' : ''} ${!d.disponible ? 'disabled' : ''}`} id={d.id}>
+              {d.badge && <div class={`badge ${d.badge === 'Próximamente' ? 'badge-muted' : ''}`}>{d.badge}</div>}
+              <div class="preview">
+                {d.disponible
+                  ? <iframe src={d.url} title={d.nombre} loading="lazy" scrolling="no"></iframe>
+                  : <div class="preview-placeholder"><span>Vista previa próximamente</span></div>
+                }
+              </div>
+              <div class="card-body">
+                <div class="card-header">
+                  <div>
+                    <div class="plan">{d.plan}</div>
+                    <div class="nombre">{d.nombre}</div>
+                  </div>
+                  <div class="precio">{d.precio}</div>
+                </div>
+                <p class="desc">{d.desc}</p>
+                <ul class="features">
+                  {d.features.map(f => <li>{f}</li>)}
+                </ul>
+                <div class="card-actions">
+                  {d.disponible && d.url
+                    ? <a href={d.url} target="_blank" rel="noopener noreferrer" class="btn-outline">Ver demo completa ↗</a>
+                    : <span class="btn-disabled">Próximamente</span>
+                  }
+                  <a href="/contacto" class={d.disponible ? 'btn-primary' : 'btn-disabled'}>Cotizar este plan →</a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="inner">
+        <div class="cta-box reveal">
+          <h2>¿No encuentras lo que buscas?</h2>
+          <p>Tenemos un plan Custom para proyectos a medida. Cuéntanos qué necesitas.</p>
+          <a href="/contacto" class="btn-primary">Conversemos →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsApp />
+</BaseLayout>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+<style>
+  .header-section { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .inner { max-width: 1400px; margin: 0 auto; padding: 80px 48px; }
+  .label { font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--limon); display: block; margin-bottom: 16px; }
+  h1 { font-family: var(--font-display); font-size: 48px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 16px; }
+  .header-section p { font-size: 16px; color: rgba(255,255,255,0.5); font-weight: 300; max-width: 520px; line-height: 1.8; }
+
+  .demos-section .inner { padding-top: 60px; padding-bottom: 60px; }
+  .grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+
+  .card { background: var(--dark2); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden; position: relative; transition: border-color 0.2s, transform 0.2s; }
+  .card:hover { border-color: rgba(196,229,56,0.2); transform: translateY(-4px); }
+  .card.featured { border-color: rgba(196,229,56,0.3); }
+  .card.disabled { opacity: 0.6; pointer-events: none; }
+
+  .badge { position: absolute; top: 12px; right: 12px; z-index: 10; background: var(--limon); color: var(--dark); font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; }
+  .badge.badge-muted { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.6); }
+
+  .preview { height: 220px; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.06); position: relative; background: var(--dark3); }
+  .preview iframe { width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; border: none; pointer-events: none; }
+  .preview-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+  .preview-placeholder span { font-size: 13px; color: rgba(255,255,255,0.2); }
+
+  .card-body { padding: 24px; }
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .plan { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--limon); margin-bottom: 4px; }
+  .nombre { font-family: var(--font-display); font-size: 18px; font-weight: 700; }
+  .precio { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.5); text-align: right; }
+  .desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.7; margin-bottom: 16px; }
+  .features { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+  .features li { background: rgba(255,255,255,0.06); border-radius: 6px; padding: 4px 10px; font-size: 11px; color: rgba(255,255,255,0.5); }
+  .card.featured .features li { background: rgba(196,229,56,0.08); color: rgba(196,229,56,0.8); }
+
+  .card-actions { display: flex; gap: 10px; }
+  .btn-primary { background: var(--limon); color: var(--dark); padding: 10px 16px; border-radius: 6px; font-size: 12px; font-weight: 500; text-decoration: none; transition: opacity 0.2s; white-space: nowrap; }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.2); padding: 10px 16px; border-radius: 6px; font-size: 12px; text-decoration: none; transition: border-color 0.2s, color 0.2s; white-space: nowrap; }
+  .btn-outline:hover { border-color: var(--limon); color: var(--limon); }
+  .btn-disabled { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.25); padding: 10px 16px; border-radius: 6px; font-size: 12px; cursor: not-allowed; }
+
+  .cta-section .inner { padding-top: 0; padding-bottom: 80px; }
+  .cta-box { background: var(--dark2); border: 1px solid rgba(196,229,56,0.15); border-radius: 16px; padding: 48px; text-align: center; }
+  h2 { font-family: var(--font-display); font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; }
+  .cta-box p { font-size: 15px; color: rgba(255,255,255,0.5); margin-bottom: 28px; }
+
+  @media (max-width: 1024px) { .grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 768px) {
+    h1 { font-size: 32px; }
+    .inner { padding: 60px 24px; }
+    .grid { grid-template-columns: 1fr; }
+    h2 { font-size: 24px; }
+  }
+</style>

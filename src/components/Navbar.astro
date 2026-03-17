@@ -1,0 +1,118 @@
+---
+const currentPath = Astro.url.pathname;
+
+const links = [
+  { label: 'Servicios', href: '/servicios' },
+  { label: 'Demos', href: '/demos' },
+  { label: 'Precios', href: '/precios' },
+  { label: 'Nosotros', href: '/nosotros' },
+];
+
+function isActive(href: string) {
+  return currentPath === href || (href !== '/' && currentPath.startsWith(href));
+}
+---
+<nav class="nav">
+  <a href="/" class="logo"><span>Limón</span> Digital</a>
+  <div class="nav-links" id="nav-links">
+    {links.map(l => (
+      <a href={l.href} class={isActive(l.href) ? 'active' : ''}>{l.label}</a>
+    ))}
+    <a href="/contacto" class="btn-cta">Cotizar proyecto</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<script>
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('nav-links');
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('open');
+    btn.classList.toggle('active');
+  });
+  menu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.remove('open');
+      btn?.classList.remove('active');
+    });
+  });
+</script>
+
+<style>
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    position: sticky;
+    top: 0;
+    background: rgba(47,47,47,0.92);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    text-decoration: none;
+    color: var(--white);
+  }
+  .logo span { color: var(--limon); }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a.active { color: var(--white); }
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0; right: 0;
+    height: 2px;
+    background: var(--limon);
+    border-radius: 2px;
+  }
+  .btn-cta {
+    background: var(--limon) !important;
+    color: var(--dark) !important;
+    padding: 9px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 13px;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .btn-cta:hover { opacity: 0.88 !important; transform: translateY(-1px); }
+  .btn-cta.active::after { display: none; }
+
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; transform-origin: center; }
+  .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 768px) {
+    .nav { padding: 16px 24px; }
+    .hamburger { display: flex; }
+    .nav-links {
+      display: none; flex-direction: column; align-items: flex-start; gap: 0;
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: rgba(30,30,30,0.98); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 16px 24px 24px;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { width: 100%; padding: 14px 0; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .nav-links a.active::after { display: none; }
+    .nav-links a:last-child { border-bottom: none; }
+    .btn-cta { margin-top: 8px; width: 100%; text-align: center; padding: 12px 20px !important; }
+  }
+</style>

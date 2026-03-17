@@ -1,0 +1,217 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import WhatsApp from '../components/WhatsApp.astro';
+---
+<BaseLayout
+  title="Limón Digital — Landing pages para PYMEs y emprendedores"
+  description="Creamos landing pages rápidas, modernas y efectivas. Tu negocio en internet en 7 días."
+>
+  <Navbar />
+  <main>
+
+    <!-- HERO -->
+    <section class="hero-wrap">
+      <div class="hero">
+        <div class="hero-text">
+          <div class="hero-label">Presencia digital · AI First · Remote First</div>
+          <h1>Tu negocio merece<br/>una <em>web que vende</em></h1>
+          <p>Creamos landing pages profesionales para PYMEs y emprendedores. Rápidas, modernas y listas para funcionar desde el día uno.</p>
+          <div class="hero-ctas">
+            <a href="/precios" class="btn-primary">Ver planes →</a>
+            <a href="/demos" class="btn-outline">Ver demos</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><span>7d</span><p>Entrega promedio</p></div>
+            <div class="stat-div"></div>
+            <div class="stat"><span>100%</span><p>Soporte incluido</p></div>
+            <div class="stat-div"></div>
+            <div class="stat"><span>AI</span><p>Potenciado con IA</p></div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="card card-main">
+            <div class="dot"></div>
+            <div class="card-title">Landing Pro activa</div>
+            <div class="card-sub">Cliente: Ejemplo SpA</div>
+            <div class="bars">
+              <div class="bar"><div class="fill" style="width:91%"></div></div>
+              <div class="bar"><div class="fill" style="width:67%"></div></div>
+              <div class="bar"><div class="fill" style="width:84%"></div></div>
+            </div>
+            <div class="card-stats">
+              <div><div class="sv">+3x</div><div class="sl">Conversiones</div></div>
+              <div><div class="sv">98</div><div class="sl">PageSpeed</div></div>
+            </div>
+          </div>
+          <div class="card card-secondary">
+            <div class="card-title">Nuevo mensaje</div>
+            <div class="card-sub">Formulario de contacto</div>
+            <div class="msg">"Hola, me interesa cotizar una landing para mi restaurante..."</div>
+            <div class="card-tags"><span>Netlify Forms</span><span>Entregado</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS RÁPIDOS -->
+    <section class="quick-services">
+      <div class="inner">
+        <div class="qs-grid">
+          <div class="qs-item reveal">
+            <div class="qs-icon">⚡</div>
+            <div class="qs-name">Entrega en 7 días</div>
+            <p>Sin esperas. Tu landing live en tiempo récord.</p>
+          </div>
+          <div class="qs-item reveal reveal-delay-1">
+            <div class="qs-icon">🎨</div>
+            <div class="qs-name">Diseño a medida</div>
+            <p>Cada sitio es único, adaptado a tu negocio.</p>
+          </div>
+          <div class="qs-item reveal reveal-delay-2">
+            <div class="qs-icon">📱</div>
+            <div class="qs-name">100% responsive</div>
+            <p>Perfecto en celular, tablet y escritorio.</p>
+          </div>
+          <div class="qs-item reveal reveal-delay-3">
+            <div class="qs-icon">🔧</div>
+            <div class="qs-name">Mantención mensual</div>
+            <p>Soporte continuo para que tu sitio siempre funcione.</p>
+          </div>
+        </div>
+        <div class="qs-cta reveal">
+          <a href="/servicios">Ver todos los servicios →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA DEMOS -->
+    <section class="demos-cta">
+      <div class="inner">
+        <div class="demos-content reveal">
+          <span class="label">Templates disponibles</span>
+          <h2>Ve cómo quedaría<br/>tu sitio web</h2>
+          <p>Explora nuestros templates listos para adaptar a tu negocio. Cada demo es un ejemplo real de lo que entregamos.</p>
+          <a href="/demos" class="btn-primary">Ver demos →</a>
+        </div>
+        <div class="demos-cards reveal reveal-delay-2">
+          <div class="demo-pill">
+            <div class="pill-dot"></div>
+            <span>Landing Básica</span>
+            <div class="pill-tag">desde $149.990</div>
+          </div>
+          <div class="demo-pill featured">
+            <div class="pill-dot"></div>
+            <span>Landing Pro</span>
+            <div class="pill-tag">desde $249.990</div>
+          </div>
+          <div class="demo-pill muted">
+            <div class="pill-dot muted"></div>
+            <span>Más templates</span>
+            <div class="pill-tag">Próximamente</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+  <WhatsApp />
+</BaseLayout>
+
+<script>
+  // Animación hero entrada
+  const heroText = document.querySelector('.hero-text') as HTMLElement;
+  const heroVisual = document.querySelector('.hero-visual') as HTMLElement;
+  if (heroText) { heroText.style.cssText += 'opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease'; }
+  if (heroVisual) { heroVisual.style.cssText += 'opacity:0;transform:translateY(24px);transition:opacity 0.7s ease 0.2s,transform 0.7s ease 0.2s'; }
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      if (heroText) { heroText.style.opacity='1'; heroText.style.transform='translateY(0)'; }
+      if (heroVisual) { heroVisual.style.opacity='1'; heroVisual.style.transform='translateY(0)'; }
+    }, 100);
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+<style>
+  .hero-wrap { width: 100%; }
+  .hero { max-width: 1400px; margin: 0 auto; padding: 100px 48px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; min-height: 88vh; }
+  .hero-label { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--limon); margin-bottom: 24px; }
+  .hero-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--limon); }
+  h1 { font-family: var(--font-display); font-size: 56px; font-weight: 800; line-height: 1.05; letter-spacing: -2px; margin-bottom: 24px; }
+  h1 em { font-style: normal; color: var(--limon); }
+  .hero-text p { font-size: 16px; color: rgba(255,255,255,0.5); font-weight: 300; line-height: 1.8; max-width: 440px; margin-bottom: 36px; }
+  .hero-ctas { display: flex; gap: 12px; align-items: center; margin-bottom: 48px; flex-wrap: wrap; }
+  .btn-primary { background: var(--limon); color: var(--dark); padding: 12px 24px; border-radius: 6px; font-weight: 500; font-size: 14px; text-decoration: none; transition: opacity 0.2s, transform 0.15s; }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.25); padding: 12px 24px; border-radius: 6px; font-size: 14px; text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+  .btn-outline:hover { border-color: var(--limon); color: var(--limon); }
+  .hero-stats { display: flex; align-items: center; gap: 20px; }
+  .stat span { font-family: var(--font-display); font-size: 24px; font-weight: 800; color: var(--limon); display: block; }
+  .stat p { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+  .stat-div { width: 1px; height: 36px; background: rgba(255,255,255,0.1); }
+  .hero-visual { position: relative; height: 400px; display: flex; align-items: center; justify-content: center; }
+  .card { background: var(--dark2); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 28px; width: 280px; position: absolute; }
+  .card-main { top: 20px; left: 0; z-index: 2; border-color: rgba(196,229,56,0.2); }
+  .card-secondary { bottom: 20px; right: 0; z-index: 1; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--limon); box-shadow: 0 0 12px var(--limon); margin-bottom: 16px; }
+  .card-title { font-family: var(--font-display); font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .card-sub { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
+  .bars { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .bar { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.08); overflow: hidden; }
+  .fill { height: 100%; border-radius: 2px; background: var(--limon); }
+  .card-stats { display: flex; gap: 20px; }
+  .sv { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: var(--limon); }
+  .sl { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+  .msg { font-size: 12px; color: rgba(255,255,255,0.4); font-style: italic; line-height: 1.6; margin: 12px 0; }
+  .card-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .card-tags span { background: rgba(196,229,56,0.12); border-radius: 6px; padding: 5px 10px; font-size: 11px; color: var(--limon); }
+
+  /* Quick services */
+  .quick-services { width: 100%; background: var(--dark2); border-top: 1px solid rgba(255,255,255,0.06); }
+  .inner { max-width: 1400px; margin: 0 auto; padding: 80px 48px; }
+  .qs-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; overflow: hidden; }
+  .qs-item { background: var(--dark2); padding: 32px 24px; transition: background 0.2s; }
+  .qs-item:hover { background: #1f1f1f; }
+  .qs-icon { font-size: 24px; margin-bottom: 14px; }
+  .qs-name { font-family: var(--font-display); font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .qs-item p { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.6; }
+  .qs-cta { text-align: right; margin-top: 24px; }
+  .qs-cta a { font-size: 13px; color: var(--limon); text-decoration: none; transition: opacity 0.2s; }
+  .qs-cta a:hover { opacity: 0.7; }
+
+  /* Demos CTA */
+  .demos-cta { width: 100%; border-top: 1px solid rgba(255,255,255,0.06); }
+  .demos-cta .inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .label { font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--limon); display: block; margin-bottom: 16px; }
+  h2 { font-family: var(--font-display); font-size: 38px; font-weight: 800; letter-spacing: -1.2px; line-height: 1.1; margin-bottom: 16px; }
+  .demos-content p { font-size: 15px; color: rgba(255,255,255,0.5); font-weight: 300; line-height: 1.8; margin-bottom: 28px; }
+  .demos-cards { display: flex; flex-direction: column; gap: 12px; }
+  .demo-pill { background: var(--dark2); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px 20px; display: flex; align-items: center; gap: 12px; transition: border-color 0.2s; }
+  .demo-pill:hover { border-color: rgba(196,229,56,0.3); }
+  .demo-pill.featured { border-color: rgba(196,229,56,0.3); background: rgba(196,229,56,0.03); }
+  .demo-pill.muted { opacity: 0.45; }
+  .pill-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--limon); flex-shrink: 0; }
+  .pill-dot.muted { background: rgba(255,255,255,0.2); }
+  .demo-pill span { font-family: var(--font-display); font-size: 14px; font-weight: 700; flex: 1; }
+  .pill-tag { font-size: 12px; color: rgba(255,255,255,0.35); }
+  .demo-pill.featured .pill-tag { color: var(--limon); }
+
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; padding: 60px 24px 40px; min-height: auto; gap: 40px; }
+    h1 { font-size: 38px; letter-spacing: -1px; }
+    .hero-visual { height: 300px; }
+    .card { width: 220px; }
+    .quick-services .inner { padding: 60px 24px; }
+    .qs-grid { grid-template-columns: 1fr 1fr; }
+    .demos-cta .inner { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px; }
+    h2 { font-size: 28px; }
+  }
+</style>

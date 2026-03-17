@@ -1,0 +1,156 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import WhatsApp from '../components/WhatsApp.astro';
+
+const planes = [
+  {
+    nombre: 'Básico',
+    precio: '149.990',
+    periodo: 'pago único',
+    mantencion: '$19.990/mes mantención',
+    features: ['Landing 1 página', 'Diseño personalizado', 'Formulario de contacto', 'SSL + Hosting incluido', 'SEO básico', 'Responsive (móvil + tablet)', 'Entrega en 5 días'],
+    destacado: false,
+    cta: 'Empezar →',
+    demo: '/demos#basic',
+  },
+  {
+    nombre: 'Pro',
+    precio: '249.990',
+    periodo: 'pago único',
+    mantencion: '$29.990/mes mantención',
+    features: ['Landing hasta 6 secciones', 'Diseño premium con animaciones', 'Botón WhatsApp flotante', 'Sección de precios', 'Integración Google Analytics', '2 revisiones de diseño', 'Soporte prioritario', 'Entrega en 7 días'],
+    destacado: true,
+    cta: 'Empezar →',
+    demo: '/demos#pro',
+  },
+  {
+    nombre: 'Custom',
+    precio: null,
+    periodo: 'cotización personalizada',
+    mantencion: 'SLA a convenir',
+    features: ['Multipage / tienda online', 'Integraciones a medida', 'Panel de administración', 'Automatizaciones', 'SLA garantizado', 'Soporte dedicado'],
+    destacado: false,
+    cta: 'Conversemos →',
+    demo: null,
+  },
+];
+
+const faqs = [
+  { q: '¿Qué incluye la mantención mensual?', a: 'Actualizaciones de contenido (textos, imágenes, precios), monitoreo del sitio, renovación de hosting y SSL, y soporte ante cualquier inconveniente técnico.' },
+  { q: '¿El dominio está incluido?', a: 'El hosting y SSL están incluidos. El dominio (ej: minegocio.cl) tiene un costo anual separado de aproximadamente $15.000 CLP, que puede gestionarse directamente contigo.' },
+  { q: '¿Cuánto tiempo tarda la entrega?', a: 'El Plan Básico se entrega en 5 días hábiles y el Pro en 7 días hábiles desde que aprobamos el diseño inicial.' },
+  { q: '¿Puedo cambiar de plan después?', a: 'Sí. Si partes con el plan Básico y luego quieres escalar al Pro, solo cobraremos la diferencia más el trabajo adicional de diseño.' },
+];
+---
+<BaseLayout
+  title="Precios — Limón Digital"
+  description="Planes desde $149.990 pago único. Landing pages profesionales con mantención mensual incluida."
+>
+  <Navbar />
+  <main>
+    <section class="header-section">
+      <div class="inner">
+        <span class="label">Planes y precios</span>
+        <h1>Simple, transparente,<br/>sin sorpresas</h1>
+        <p>Elige el plan que se ajusta a tu etapa. Todos incluyen SSL, hosting y soporte post-lanzamiento.</p>
+      </div>
+    </section>
+
+    <section class="pricing-section">
+      <div class="inner">
+        <div class="grid">
+          {planes.map(p => (
+            <div class={`card reveal ${p.destacado ? 'featured' : ''}`}>
+              {p.destacado && <div class="badge">Más popular</div>}
+              <div class="nombre">{p.nombre}</div>
+              {p.precio
+                ? <div class="precio"><span>$</span>{p.precio}</div>
+                : <div class="precio custom">A medida</div>
+              }
+              <div class="periodo">{p.periodo}</div>
+              <div class="mantencion">{p.mantencion}</div>
+              <ul class="features">
+                {p.features.map(f => <li>{f}</li>)}
+              </ul>
+              <div class="card-actions">
+                <a href="/contacto" class={p.destacado ? 'btn-primary' : 'btn-outline'}>{p.cta}</a>
+                {p.demo && <a href={p.demo} class="btn-ghost">Ver demo →</a>}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <div class="inner">
+        <span class="label">Preguntas frecuentes</span>
+        <h2>Resolvemos tus dudas</h2>
+        <div class="faqs">
+          {faqs.map(f => (
+            <div class="faq reveal">
+              <div class="faq-q">{f.q}</div>
+              <div class="faq-a">{f.a}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsApp />
+</BaseLayout>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+<style>
+  .header-section { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .inner { max-width: 1400px; margin: 0 auto; padding: 80px 48px; }
+  .label { font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--limon); display: block; margin-bottom: 16px; }
+  h1 { font-family: var(--font-display); font-size: 48px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 16px; }
+  .header-section p { font-size: 16px; color: rgba(255,255,255,0.5); font-weight: 300; max-width: 520px; line-height: 1.8; }
+
+  .pricing-section .inner { padding-top: 60px; padding-bottom: 60px; }
+  .grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .card { background: var(--dark2); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 36px 28px; position: relative; transition: border-color 0.2s; }
+  .card:hover { border-color: rgba(196,229,56,0.3); }
+  .card.featured { border-color: var(--limon); background: rgba(196,229,56,0.03); }
+  .badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--limon); color: var(--dark); font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; white-space: nowrap; }
+  .nombre { font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
+  .precio { font-family: var(--font-display); font-size: 44px; font-weight: 800; letter-spacing: -2px; line-height: 1; margin-bottom: 4px; }
+  .precio span { font-size: 18px; font-weight: 400; letter-spacing: 0; vertical-align: super; margin-right: 2px; }
+  .precio.custom { font-size: 32px; }
+  .periodo { font-size: 12px; color: rgba(255,255,255,0.3); }
+  .mantencion { font-size: 12px; color: var(--limon); margin-bottom: 24px; margin-top: 4px; }
+  .features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .features li { font-size: 13px; color: rgba(255,255,255,0.55); display: flex; gap: 8px; align-items: flex-start; }
+  .features li::before { content: '✓'; color: var(--limon); font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+  .card-actions { display: flex; flex-direction: column; gap: 10px; }
+  .btn-primary { background: var(--limon); color: var(--dark); padding: 12px; border-radius: 6px; font-size: 13px; font-weight: 500; text-decoration: none; text-align: center; transition: opacity 0.2s; display: block; }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.2); padding: 12px; border-radius: 6px; font-size: 13px; text-decoration: none; text-align: center; transition: border-color 0.2s, color 0.2s; display: block; }
+  .btn-outline:hover { border-color: var(--limon); color: var(--limon); }
+  .btn-ghost { font-size: 12px; color: rgba(255,255,255,0.35); text-decoration: none; text-align: center; display: block; padding: 6px; transition: color 0.2s; }
+  .btn-ghost:hover { color: var(--limon); }
+
+  .faq-section { width: 100%; background: var(--dark2); border-top: 1px solid rgba(255,255,255,0.06); }
+  h2 { font-family: var(--font-display); font-size: 38px; font-weight: 800; letter-spacing: -1.2px; line-height: 1.1; margin-bottom: 40px; }
+  .faqs { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .faq { background: var(--dark); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 28px; }
+  .faq-q { font-family: var(--font-display); font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+  .faq-a { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.7; }
+
+  @media (max-width: 1024px) { .grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
+  @media (max-width: 768px) {
+    h1 { font-size: 32px; } h2 { font-size: 28px; }
+    .inner { padding: 60px 24px; }
+    .faqs { grid-template-columns: 1fr; }
+  }
+</style>
