@@ -9,16 +9,21 @@ const {
 } = Astro.props;
 
 // Google Analytics — reemplaza con tu ID cuando estés listo (ej: G-XXXXXXXXXX)
-const GA_ID = '';
+const GA_ID = 'G-Z9LTYQCKYT';
 ---
 <!DOCTYPE html>
 <html lang="es">
-  <head>
+ <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://limondigital.cl/favicon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CL" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     {GA_ID && (
       <>
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
