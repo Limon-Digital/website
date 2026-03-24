@@ -10,7 +10,7 @@ const demos = [
     plan: 'Emprende',
     desc: 'Presencia digital simple y efectiva. Ideal para emprendedores y negocios que recién arrancan.',
     features: ['1 a 2 secciones', 'Hero + llamada a la acción', 'Formulario de contacto', 'Responsive mobile'],
-    url: 'https://limondigital-demo-landing-basic.netlify.app/',
+    url: 'https://emprende.limondigital.cl/',
     destacado: false,
     disponible: true,
   },
@@ -19,18 +19,9 @@ const demos = [
     plan: 'Emprende Pro',
     desc: 'Landing completa con 5 secciones, SEO básico, galería y testimonios.',
     features: ['5 secciones completas', 'Galería / portafolio', 'Testimonios + contacto', 'SEO básico on-page', 'Responsive mobile'],
-    url: 'https://limondigital-demo-landing-pro.netlify.app/',
+    url: 'https://emprendepro.limondigital.cl/',
     destacado: true,
     disponible: true,
-  },
-  {
-    nombre: 'Corporativo',
-    plan: 'Corporativo',
-    desc: 'Proyecto a medida con integraciones, blog/CMS y soporte premium.',
-    features: ['Sin límite de secciones', 'Animaciones / interactividad', 'Blog / CMS opcional', 'SEO técnico', 'Soporte prioritario'],
-    url: '#',
-    destacado: false,
-    disponible: false,
   },
 ];
 ---
@@ -82,16 +73,21 @@ const demos = [
               </div>
             </div>
           ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="cta-section">
-      <div class="inner">
-        <div class="cta-box reveal">
-          <h2>¿No encuentras lo que buscas?</h2>
-          <p>Tenemos un plan Custom para proyectos a medida. Cuéntanos qué necesitas.</p>
-          <a href="/contacto" class="btn-primary">Conversemos →</a>
+       <div class="card card-corporativo reveal">
+            <div class="corp-content">
+              <div class="corp-label">Plan Corporativo</div>
+              <h3>¿Necesitas algo más robusto?</h3>
+              <p>El plan Corporativo es completamente a medida — igual que este sitio que estás viendo ahora mismo. Sin límites de secciones, con integraciones, blog/CMS y soporte prioritario.</p>
+              <ul class="corp-features">
+                <li>Sin límite de secciones</li>
+                <li>Animaciones e interactividad</li>
+                <li>Blog / CMS opcional</li>
+                <li>SEO técnico avanzado</li>
+                <li>Soporte prioritario mismo día</li>
+              </ul>
+              <a href="/contacto" class="btn-primary">Conversemos →</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -146,17 +142,27 @@ const demos = [
   .btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.2); padding: 10px 16px; border-radius: 6px; font-size: 12px; text-decoration: none; transition: border-color 0.2s, color 0.2s; white-space: nowrap; }
   .btn-outline:hover { border-color: var(--limon); color: var(--limon); }
   .btn-disabled { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.25); padding: 10px 16px; border-radius: 6px; font-size: 12px; cursor: not-allowed; }
-
-  .cta-section .inner { padding-top: 0; padding-bottom: 80px; }
-  .cta-box { background: var(--dark2); border: 1px solid rgba(196,229,56,0.15); border-radius: 16px; padding: 48px; text-align: center; }
   h2 { font-family: var(--font-display); font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; }
-  .cta-box p { font-size: 15px; color: rgba(255,255,255,0.5); margin-bottom: 28px; }
+  .card-corporativo { background: linear-gradient(135deg, rgba(196,229,56,0.06), rgba(196,229,56,0.02)); border-color: rgba(196,229,56,0.2); display: flex; align-items: center; justify-content: center; min-height: 400px; }
+  .corp-content { padding: 40px; }
+  .corp-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--limon); margin-bottom: 16px; }
+  .card-corporativo h3 { font-family: var(--font-display); font-size: 24px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 16px; }
+  .card-corporativo p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.8; margin-bottom: 20px; }
+  .corp-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
+  .corp-features li { font-size: 13px; color: rgba(255,255,255,0.6); display: flex; gap: 8px; align-items: center; }
+  .corp-features li::before { content: '✓'; color: var(--limon); font-weight: 700; font-size: 12px; flex-shrink: 0; }
 
-  @media (max-width: 1024px) { .grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 1024px) {
+    .grid { grid-template-columns: 1fr 1fr; }
+    .card-actions { flex-direction: column; }
+    .btn-primary, .btn-outline, .btn-disabled { text-align: center; white-space: normal; }
+  }
   @media (max-width: 768px) {
     h1 { font-size: 32px; }
     .inner { padding: 60px 24px; }
     .grid { grid-template-columns: 1fr; }
     h2 { font-size: 24px; }
+    .card-actions { flex-direction: column; }
+    .btn-primary, .btn-outline, .btn-disabled { text-align: center; white-space: normal; }
   }
 </style>
